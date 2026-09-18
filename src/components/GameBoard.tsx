@@ -78,6 +78,7 @@ export function GameBoard() {
             slots={state.board[level]}
             deckRemaining={state.decks[level].length}
             disabled={blocked}
+            reserveFull={player.reservedCards.length >= MAX_RESERVED_CARDS}
             onCardClick={handleCardClick}
             onDeckClick={handleDeckClick}
             isCardAffordable={(card) => canAfford(card, player)}
