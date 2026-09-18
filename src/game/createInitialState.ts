@@ -34,7 +34,7 @@ export function createSetupState(): GameState {
     nobles: [],
     pendingAction: null,
     finalRoundTriggeredBy: null,
-    winnerId: null,
+    winnerIds: [],
     turnCount: 0,
   };
 }
@@ -63,7 +63,7 @@ export function createInitialState(playerNames: string[]): GameState {
     nobles: [],
     pendingAction: null,
     finalRoundTriggeredBy: null,
-    winnerId: null,
+    winnerIds: [],
     turnCount: 0,
   };
 }

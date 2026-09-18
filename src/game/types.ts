@@ -79,14 +79,15 @@ export interface GameState {
   pendingAction: PendingAction | null;
   /** Player index that first reached 15+ points; set once, triggers the final round. */
   finalRoundTriggeredBy: number | null;
-  /** Player id(s) tied for first at game end, before the card-count tiebreak is shown. */
-  winnerId: string | null;
+  /** Winning player id(s) once phase is 'gameOver' — more than one means a full tie (score AND card count). */
+  winnerIds: string[];
   turnCount: number;
 }
 
 /** Actions dispatched by the active player. The reducer validates legality and applies them. */
 export type GameAction =
   | { type: 'START_GAME'; playerNames: string[] }
+  | { type: 'RESET_TO_SETUP' }
   | { type: 'TAKE_TOKENS'; colors: GemColor[] } // 3 distinct colors, or [color, color] for same-color-2
   | { type: 'BUY_CARD'; cardId: string; source: 'board' | 'reserved' }
   | { type: 'RESERVE_CARD_FROM_BOARD'; cardId: string }

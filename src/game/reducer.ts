@@ -1,10 +1,11 @@
-import { createInitialState } from './createInitialState';
+import { createInitialState, createSetupState } from './createInitialState';
 import { dealGame } from './setup';
 import { MAX_RESERVED_CARDS, MAX_TOKENS_HELD } from './constants';
 import { paymentPlan, type PaymentPlan } from './cost';
 import { findEligibleNobles } from './nobleRules';
 import { isValidTokenSelection } from './tokenRules';
 import { totalTokenCount } from './playerUtils';
+import { computeWinners, hasReachedWinningScore } from './winCondition';
 import type { Card, CardLevel, GameAction, GameState, GemColor, Player } from './types';
 
 function currentPlayer(state: GameState): Player {
@@ -15,10 +16,36 @@ function replacePlayer(state: GameState, playerId: string, updater: (p: Player) 
   return { ...state, players: state.players.map((p) => (p.id === playerId ? updater(p) : p)) };
 }
 
+/**
+ * Ends the current player's turn. If this is the first time anyone has hit
+ * 15+ points, that flags the final round — play continues until every other
+ * player has had one more turn. The game ends right as the turn order would
+ * loop back to the player who triggered it (they don't get an extra turn).
+ */
 function advanceTurn(state: GameState): GameState {
+  const finishingPlayer = currentPlayer(state);
+  const finalRoundTriggeredBy =
+    state.finalRoundTriggeredBy ?? (hasReachedWinningScore(finishingPlayer) ? state.currentPlayerIndex : null);
+
+  const nextIndex = (state.currentPlayerIndex + 1) % state.players.length;
+
+  if (finalRoundTriggeredBy !== null && nextIndex === finalRoundTriggeredBy) {
+    return {
+      ...state,
+      phase: 'gameOver',
+      finalRoundTriggeredBy,
+      currentPlayerIndex: nextIndex,
+      turnCount: state.turnCount + 1,
+      pendingAction: null,
+      winnerIds: computeWinners(state.players),
+    };
+  }
+
   return {
     ...state,
-    currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
+    phase: finalRoundTriggeredBy !== null ? 'finalRound' : state.phase,
+    finalRoundTriggeredBy,
+    currentPlayerIndex: nextIndex,
     turnCount: state.turnCount + 1,
     pendingAction: null,
   };
@@ -105,9 +132,16 @@ function resolveNobles(state: GameState, player: Player): GameState {
 }
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
+  if (state.phase === 'gameOver' && action.type !== 'RESET_TO_SETUP' && action.type !== 'START_GAME') {
+    return state;
+  }
+
   switch (action.type) {
     case 'START_GAME':
       return dealGame(createInitialState(action.playerNames));
+
+    case 'RESET_TO_SETUP':
+      return createSetupState();
 
     case 'TAKE_TOKENS': {
       if (state.pendingAction) return state;

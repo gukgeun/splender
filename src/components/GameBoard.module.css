@@ -26,6 +26,16 @@
   padding: 6px 18px;
 }
 
+.finalRoundBanner {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2a2410;
+  background: #f5d67a;
+  border-radius: 12px;
+  padding: 10px 18px;
+  text-align: center;
+}
+
 .playersArea {
   flex: none;
 }

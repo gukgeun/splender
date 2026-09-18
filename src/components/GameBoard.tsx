@@ -61,6 +61,12 @@ export function GameBoard() {
   return (
     <div className={styles.layout}>
       <div className={styles.boardArea}>
+        {state.phase === 'finalRound' && (
+          <div className={styles.finalRoundBanner}>
+            마지막 라운드! {state.players[state.finalRoundTriggeredBy!].name}님이 15점을 달성했습니다
+          </div>
+        )}
+
         <div className={styles.turnBanner}>{player.name}의 차례</div>
 
         <NoblesRow nobles={state.nobles} />
