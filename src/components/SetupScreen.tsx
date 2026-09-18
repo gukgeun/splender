@@ -34,7 +34,7 @@ export function SetupScreen() {
   return (
     <div className={styles.screen}>
       <div className={styles.card}>
-        <h1 className={styles.title}>스플렌더</h1>
+        <h1 className={styles.title}>보석상인</h1>
 
         <div className={styles.section}>
           <span className={styles.sectionLabel}>인원 수</span>

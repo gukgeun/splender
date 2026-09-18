@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import coverImage from '../assets/cover/lobby-cover.jpg';
 import { useRoom } from '../context/RoomContext';
+import { HowToPlayModal } from './HowToPlayModal';
 import styles from './LobbyScreen.module.css';
 
 type Mode = 'create' | 'join';
@@ -9,6 +11,7 @@ export function LobbyScreen() {
   const [mode, setMode] = useState<Mode>('create');
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
 
   function handleSubmit() {
     const trimmedName = name.trim() || '플레이어';
@@ -21,9 +24,9 @@ export function LobbyScreen() {
 
   return (
     <div className={styles.screen}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>스플렌더</h1>
+      <img className={styles.coverBg} src={coverImage} alt="보석상인" />
 
+      <div className={styles.card}>
         <div className={styles.tabRow}>
           <button
             type="button"
@@ -79,6 +82,12 @@ export function LobbyScreen() {
           {busy ? '처리 중...' : mode === 'create' ? '방 만들기' : '참가하기'}
         </button>
       </div>
+
+      <button type="button" className={styles.howToPlayButton} onClick={() => setShowHowToPlay(true)}>
+        게임 방법 보기
+      </button>
+
+      {showHowToPlay && <HowToPlayModal onClose={() => setShowHowToPlay(false)} />}
     </div>
   );
 }
