@@ -1,0 +1,105 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.cardPreview {
+  transform: scale(1.5);
+  margin: 14px 0 20px;
+}
+
+.costBlock {
+  width: 100%;
+  text-align: center;
+}
+
+.costLabel {
+  display: block;
+  font-size: 13px;
+  color: #9aa3b5;
+  margin-bottom: 8px;
+}
+
+.costRow {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.free {
+  color: #e5e9f0;
+  font-size: 15px;
+}
+
+.costPip {
+  border-radius: 16px;
+  border: 1.5px solid;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.short {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+.haveNote {
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.deckMessage {
+  color: #e5e9f0;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+  margin: 8px 0 4px;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buyButton,
+.reserveButton,
+.cancelButton {
+  min-height: 52px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.buyButton {
+  background: #f5d67a;
+  color: #2a2410;
+}
+
+.buyButton:disabled {
+  background: #3a3f4d;
+  color: #767d8c;
+}
+
+.reserveButton {
+  background: #2b303c;
+  color: #e5e9f0;
+  border: 2px solid #3a4152;
+}
+
+.cancelButton {
+  background: transparent;
+  color: #8b93a5;
+}
+
+.buyButton:not(:disabled):active,
+.reserveButton:active,
+.cancelButton:active {
+  transform: scale(0.98);
+}

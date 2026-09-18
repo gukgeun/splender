@@ -1,16 +1,19 @@
 import { GEM_COLORS } from '../game/constants';
 import { TOKEN_STYLE } from '../game/colors';
-import type { Player } from '../game/types';
+import { totalTokenCount } from '../game/playerUtils';
+import type { Card, Player } from '../game/types';
+import { DevCard } from './DevCard';
 import { TokenChip } from './TokenChip';
 import styles from './PlayerPanel.module.css';
 
 interface PlayerPanelProps {
   player: Player;
   isActive: boolean;
+  onReservedCardClick?: (card: Card) => void;
 }
 
-export function PlayerPanel({ player, isActive }: PlayerPanelProps) {
-  const totalTokens = GEM_COLORS.reduce((sum, c) => sum + player.tokens[c], 0) + player.tokens.gold;
+export function PlayerPanel({ player, isActive, onReservedCardClick }: PlayerPanelProps) {
+  const totalTokens = totalTokenCount(player.tokens);
 
   return (
     <div className={`${styles.panel} ${isActive ? styles.active : ''}`}>
@@ -42,6 +45,19 @@ export function PlayerPanel({ player, isActive }: PlayerPanelProps) {
           );
         })}
       </div>
+
+      {player.reservedCards.length > 0 && (
+        <div className={styles.row}>
+          {player.reservedCards.map((card) => (
+            <DevCard
+              key={card.id}
+              card={card}
+              size="compact"
+              onClick={isActive && onReservedCardClick ? () => onReservedCardClick(card) : undefined}
+            />
+          ))}
+        </div>
+      )}
 
       <div className={styles.footer}>
         <span>구매 카드 {player.purchasedCards.length}</span>

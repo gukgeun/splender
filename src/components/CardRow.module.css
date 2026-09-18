@@ -23,6 +23,19 @@
   justify-content: center;
   gap: 6px;
   color: #cfd4e2;
+  padding: 0;
+}
+
+.deckBack:not(:disabled) {
+  cursor: pointer;
+}
+
+.deckBack:not(:disabled):active {
+  transform: translateY(2px);
+}
+
+.deckBack:disabled {
+  opacity: 0.5;
 }
 
 .deckLevel {

@@ -66,3 +66,37 @@
     width: 118px;
   }
 }
+
+.unaffordable {
+  opacity: 0.55;
+}
+
+.compact {
+  width: 64px;
+  border-top-width: 5px;
+  padding: 5px;
+  gap: 4px;
+}
+
+.compact .points {
+  font-size: 13px;
+}
+
+.compact .bonusIcon {
+  width: 15px;
+  height: 15px;
+  border-width: 1.5px;
+}
+
+.compact .costPip {
+  min-width: 16px;
+  height: 16px;
+  font-size: 9px;
+  border-width: 1px;
+}
+
+@media (min-width: 900px) {
+  .compact {
+    width: 64px;
+  }
+}

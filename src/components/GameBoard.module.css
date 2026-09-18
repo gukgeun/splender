@@ -16,6 +16,16 @@
   overflow: auto;
 }
 
+.turnBanner {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f5d67a;
+  background: #262b37;
+  border: 1px solid #3a4152;
+  border-radius: 999px;
+  padding: 6px 18px;
+}
+
 .playersArea {
   flex: none;
 }

@@ -1,3 +1,10 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
 .pool {
   display: flex;
   gap: 14px;
@@ -8,4 +15,56 @@
   border: 1px solid #2b303c;
   border-radius: 16px;
   flex-wrap: wrap;
+}
+
+.tray {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #262b37;
+  border: 2px solid #f5d67a;
+  border-radius: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trayLabel {
+  font-size: 12px;
+  color: #9aa3b5;
+}
+
+.trayChips {
+  display: flex;
+  gap: 6px;
+}
+
+.trayActions {
+  display: flex;
+  gap: 8px;
+}
+
+.confirmButton,
+.cancelButton {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.confirmButton {
+  background: #f5d67a;
+  color: #2a2410;
+}
+
+.confirmButton:disabled {
+  background: #3a3f4d;
+  color: #767d8c;
+}
+
+.cancelButton {
+  background: #3a4152;
+  color: #e5e9f0;
 }

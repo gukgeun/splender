@@ -7,9 +7,13 @@ interface DevCardProps {
   card: Card;
   onClick?: () => void;
   disabled?: boolean;
+  /** Smaller rendering used for reserved-card previews in a player panel. */
+  size?: 'normal' | 'compact';
+  /** Dims the card when the current player can't afford it. Purely visual. */
+  affordable?: boolean;
 }
 
-export function DevCard({ card, onClick, disabled }: DevCardProps) {
+export function DevCard({ card, onClick, disabled, size = 'normal', affordable = true }: DevCardProps) {
   const bonusStyle = TOKEN_STYLE[card.bonus];
   const costEntries = GEM_COLORS.map((color) => [color, card.cost[color] ?? 0] as const).filter(
     ([, amount]) => amount > 0,
@@ -18,7 +22,7 @@ export function DevCard({ card, onClick, disabled }: DevCardProps) {
   return (
     <button
       type="button"
-      className={styles.card}
+      className={`${styles.card} ${size === 'compact' ? styles.compact : ''} ${!affordable ? styles.unaffordable : ''}`}
       style={{ borderTopColor: bonusStyle.bg }}
       onClick={onClick}
       disabled={disabled}

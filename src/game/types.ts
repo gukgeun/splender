@@ -89,6 +89,9 @@ export type GameAction =
   | { type: 'START_GAME'; playerNames: string[] }
   | { type: 'TAKE_TOKENS'; colors: GemColor[] } // 3 distinct colors, or [color, color] for same-color-2
   | { type: 'BUY_CARD'; cardId: string; source: 'board' | 'reserved' }
-  | { type: 'RESERVE_CARD'; cardId: string; source: 'board' | 'deck'; level?: CardLevel }
+  | { type: 'RESERVE_CARD_FROM_BOARD'; cardId: string }
+  // Reserving the top of a deck is a blind pick — the client can't know the card's
+  // id ahead of time, so it names the deck by level instead.
+  | { type: 'RESERVE_CARD_FROM_DECK'; level: CardLevel }
   | { type: 'DISCARD_TOKEN'; color: TokenColor }
   | { type: 'CHOOSE_NOBLE'; nobleId: string };
