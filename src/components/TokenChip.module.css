@@ -47,6 +47,14 @@
   font-size: 13px;
 }
 
+/* Tap targets need >=44px even at the "sm" visual size — only applies when
+   the chip is actually interactive (display-only "sm" chips stay compact). */
+.sm.interactive {
+  width: 44px;
+  height: 44px;
+  font-size: 15px;
+}
+
 .md {
   width: 48px;
   height: 48px;
