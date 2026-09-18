@@ -18,7 +18,10 @@ export function PlayerPanel({ player, isActive, onReservedCardClick }: PlayerPan
   return (
     <div className={`${styles.panel} ${isActive ? styles.active : ''}`}>
       <div className={styles.headerRow}>
-        <span className={styles.name}>{player.name}</span>
+        <span className={styles.nameGroup}>
+          <span className={styles.name}>{player.name}</span>
+          {isActive && <span className={styles.turnBadge}>▶ 차례</span>}
+        </span>
         <span className={styles.score}>{player.score}점</span>
       </div>
 

@@ -7,17 +7,44 @@
   flex-direction: column;
   gap: 8px;
   min-width: 220px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .active {
   border-color: #f5d67a;
-  box-shadow: 0 0 0 3px rgba(245, 214, 122, 0.2);
+  background: #26241a;
+  animation: turnPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes turnPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(245, 214, 122, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(245, 214, 122, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active {
+    animation: none;
+    box-shadow: 0 0 0 4px rgba(245, 214, 122, 0.3);
+  }
 }
 
 .headerRow {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  gap: 8px;
+}
+
+.nameGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
 }
 
 .name {
@@ -27,6 +54,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.turnBadge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #2a2410;
+  background: #f5d67a;
+  border-radius: 999px;
+  padding: 3px 9px;
 }
 
 .score {

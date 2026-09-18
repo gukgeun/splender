@@ -67,7 +67,9 @@ export function GameBoard() {
           </div>
         )}
 
-        <div className={styles.turnBanner}>{player.name}의 차례</div>
+        <div key={state.turnCount} className={styles.turnBanner}>
+          {player.name}의 차례
+        </div>
 
         <NoblesRow nobles={state.nobles} />
 

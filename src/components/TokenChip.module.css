@@ -1,4 +1,5 @@
 .chip {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7,6 +8,37 @@
   font-weight: 700;
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.3);
   flex: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.selected {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 3px #f5d67a,
+    0 3px 0 rgba(0, 0, 0, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.selected.interactive:active {
+  transform: scale(1.08) translateY(2px);
+}
+
+.selectedBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #f5d67a;
+  color: #2a2410;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #14161c;
 }
 
 .sm {

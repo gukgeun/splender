@@ -31,7 +31,7 @@ export function CardRow({
     <div className={styles.row}>
       <button
         type="button"
-        className={styles.deckBack}
+        className={`${styles.deckBack} ${styles[`deckLevel${level}` as const]}`}
         onClick={() => onDeckClick(level)}
         disabled={deckDisabled}
         aria-label={
@@ -40,8 +40,8 @@ export function CardRow({
             : `레벨 ${level} 덱, ${deckRemaining}장 남음`
         }
       >
-        <span className={styles.deckLevel}>{LEVEL_LABEL[level]}</span>
-        <span className={styles.deckCount}>{deckRemaining}</span>
+        <span className={styles.deckEmblem}>{LEVEL_LABEL[level]}</span>
+        <span className={styles.deckCount}>{deckRemaining}장</span>
       </button>
       {slots.map((card, i) =>
         card ? (

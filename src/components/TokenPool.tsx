@@ -49,6 +49,7 @@ export function TokenPool({ tokenPool, disabled, turnCount }: TokenPoolProps) {
             size="lg"
             onClick={() => handleBankTap(color)}
             disabled={disabled || !canAddColorToSelection(tokenPool, tray, color)}
+            selectedCount={tray.filter((c) => c === color).length}
           />
         ))}
         <TokenChip color="gold" count={tokenPool.gold} size="lg" />

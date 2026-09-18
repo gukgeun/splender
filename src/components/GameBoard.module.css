@@ -24,6 +24,24 @@
   border: 1px solid #3a4152;
   border-radius: 999px;
   padding: 6px 18px;
+  animation: turnBannerIn 0.35s ease;
+}
+
+@keyframes turnBannerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turnBanner {
+    animation: none;
+  }
 }
 
 .finalRoundBanner {
