@@ -24,7 +24,7 @@ export function CardDetailModal({ card, player, canBuy, canReserve, onBuy, onRes
     <ModalOverlay onClose={onClose}>
       <div className={styles.content}>
         <div className={styles.cardPreview}>
-          <DevCard card={card} />
+          <DevCard card={card} size="large" />
         </div>
 
         <div className={styles.costBlock}>

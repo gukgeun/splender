@@ -100,3 +100,38 @@
     width: 64px;
   }
 }
+
+.large {
+  width: 160px;
+  border-top-width: 12px;
+  padding: 14px;
+  gap: 8px;
+}
+
+.card.large:not(:disabled) {
+  cursor: default;
+}
+
+.large .points {
+  font-size: 30px;
+}
+
+.large .bonusIcon {
+  width: 34px;
+  height: 34px;
+  border-width: 3px;
+}
+
+.large .costPip {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  font-size: 16px;
+  border-width: 2px;
+}
+
+@media (min-width: 900px) {
+  .large {
+    width: 160px;
+  }
+}
