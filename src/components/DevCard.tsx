@@ -3,6 +3,16 @@ import { TOKEN_STYLE } from '../game/colors';
 import type { Card } from '../game/types';
 import styles from './DevCard.module.css';
 
+// Keyed by card id (e.g. "L1-01") so a card silently falls back to the plain
+// color-coded face if that card's art hasn't been added yet.
+const cardImagesPng = import.meta.glob<string>('../assets/cards/*.png', { eager: true, import: 'default' });
+const cardImagesJpg = import.meta.glob<string>('../assets/cards/*.jpg', { eager: true, import: 'default' });
+const cardImages: Record<string, string> = { ...cardImagesPng, ...cardImagesJpg };
+
+function cardArt(cardId: string): string | undefined {
+  return cardImages[`../assets/cards/${cardId}.png`] ?? cardImages[`../assets/cards/${cardId}.jpg`];
+}
+
 interface DevCardProps {
   card: Card;
   onClick?: () => void;
@@ -15,6 +25,7 @@ interface DevCardProps {
 
 export function DevCard({ card, onClick, disabled, size = 'normal', affordable = true }: DevCardProps) {
   const bonusStyle = TOKEN_STYLE[card.bonus];
+  const art = cardArt(card.id);
   const costEntries = GEM_COLORS.map((color) => [color, card.cost[color] ?? 0] as const).filter(
     ([, amount]) => amount > 0,
   );
@@ -27,8 +38,10 @@ export function DevCard({ card, onClick, disabled, size = 'normal', affordable =
       onClick={onClick}
       disabled={disabled}
     >
+      {art && <img className={styles.art} src={art} alt="" />}
+
       <div className={styles.header}>
-        <span className={styles.points}>{card.points > 0 ? card.points : ''}</span>
+        {card.points > 0 ? <span className={styles.points}>{card.points}</span> : <span />}
         <span
           className={styles.bonusIcon}
           style={{ background: bonusStyle.bg, color: bonusStyle.fg, borderColor: bonusStyle.border }}

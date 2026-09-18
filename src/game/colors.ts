@@ -16,3 +16,22 @@ export const TOKEN_STYLE: Record<TokenColor, ColorStyle> = {
   onyx: { label: '오닉스', bg: '#27272a', fg: '#ffffff', border: '#000000' },
   gold: { label: '골드', bg: '#eab308', fg: '#422006', border: '#a16207' },
 };
+
+export interface GemGradientStops {
+  /** Bright core, offset toward the upper-left so the token reads as lit from one side. */
+  highlight: string;
+  /** Saturated mid-tone — the color's "true" hue. */
+  mid: string;
+  /** Dark rim the gradient fades to at the edge. */
+  edge: string;
+}
+
+/** Radial-gradient stops used to render each token as a glossy glass/gem bead (see TokenChip). */
+export const GEM_TOKEN_GRADIENT: Record<TokenColor, GemGradientStops> = {
+  emerald: { highlight: '#7fe3ab', mid: '#16a34a', edge: '#0a4a21' },
+  sapphire: { highlight: '#93c5fd', mid: '#2563eb', edge: '#122c7a' },
+  ruby: { highlight: '#fca5a5', mid: '#dc2626', edge: '#6b0f0f' },
+  diamond: { highlight: '#ffffff', mid: '#e2e8f0', edge: '#94a3b8' },
+  onyx: { highlight: '#6b7280', mid: '#27272a', edge: '#000000' },
+  gold: { highlight: '#fde68a', mid: '#eab308', edge: '#7a4a06' },
+};

@@ -4,11 +4,22 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 2px solid;
+  overflow: hidden;
+  border: none;
+  background: none;
+  padding: 0;
   font-weight: 700;
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.3);
   flex: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .selected {
@@ -81,5 +92,7 @@
 }
 
 .count {
+  position: relative;
   pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
 }
