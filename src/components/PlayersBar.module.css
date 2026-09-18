@@ -1,0 +1,15 @@
+.bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+  .bar {
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: auto;
+  }
+}

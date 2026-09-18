@@ -1,0 +1,70 @@
+.panel {
+  background: #1c2028;
+  border: 2px solid #2b303c;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.active {
+  border-color: #f5d67a;
+  box-shadow: 0 0 0 3px rgba(245, 214, 122, 0.2);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e5e9f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f5d67a;
+  flex: none;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.totalTokens {
+  font-size: 12px;
+  color: #8b93a5;
+  margin-left: auto;
+}
+
+.bonusSquare {
+  min-width: 28px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1.5px solid;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: #8b93a5;
+  flex-wrap: wrap;
+}

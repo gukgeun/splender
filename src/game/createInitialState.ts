@@ -22,11 +22,27 @@ function createPlayer(id: string, name: string): Player {
   };
 }
 
+/** Empty placeholder state shown while the setup screen collects player names. */
+export function createSetupState(): GameState {
+  return {
+    phase: 'setup',
+    players: [],
+    currentPlayerIndex: 0,
+    tokenPool: emptyTokenRecord(),
+    decks: { 1: [], 2: [], 3: [] },
+    board: { 1: [null, null, null, null], 2: [null, null, null, null], 3: [null, null, null, null] },
+    nobles: [],
+    pendingAction: null,
+    finalRoundTriggeredBy: null,
+    winnerId: null,
+    turnCount: 0,
+  };
+}
+
 /**
  * Builds a fresh game shell for the given players: token pool filled,
- * players created, but board/decks/nobles left empty. Card & noble data
- * (and the shuffle/deal step) are wired in once the board UI is built,
- * since that's the first place they're actually needed.
+ * players created, but board/decks/nobles left empty — dealGame() (in
+ * setup.ts) fills those in with shuffled cards and nobles.
  */
 export function createInitialState(playerNames: string[]): GameState {
   const count = playerNames.length;

@@ -1,0 +1,33 @@
+.layout {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px;
+  background: radial-gradient(circle at 50% 0%, #232733, #121419 75%);
+}
+
+.boardArea {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  flex: 1;
+  overflow: auto;
+}
+
+.playersArea {
+  flex: none;
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+  .layout {
+    flex-direction: row;
+    padding: 16px;
+  }
+
+  .playersArea {
+    width: 260px;
+    max-height: calc(100svh - 32px);
+  }
+}

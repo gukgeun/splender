@@ -1,0 +1,11 @@
+.pool {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: #171a21;
+  border: 1px solid #2b303c;
+  border-radius: 16px;
+  flex-wrap: wrap;
+}
