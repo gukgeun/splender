@@ -15,7 +15,13 @@ import styles from './GameBoard.module.css';
 
 type CardSelection = { card: Card; source: 'board' | 'reserved' };
 
-export function GameBoard() {
+interface GameBoardProps {
+  /** This device's seat in an online game (e.g. "p1"). Omitted for local hot-seat play,
+   * where the shared device always acts as whoever's turn it is. */
+  myPlayerId?: string;
+}
+
+export function GameBoard({ myPlayerId }: GameBoardProps) {
   const state = useGameState();
   const dispatch = useGameDispatch();
   const [activeCard, setActiveCard] = useState<CardSelection | null>(null);
@@ -23,7 +29,8 @@ export function GameBoard() {
 
   const player = state.players[state.currentPlayerIndex];
   const pendingAction = state.pendingAction;
-  const blocked = pendingAction !== null;
+  const isMyTurn = myPlayerId == null || player.id === myPlayerId;
+  const blocked = pendingAction !== null || !isMyTurn;
 
   function handleCardClick(card: Card) {
     if (blocked) return;
@@ -118,7 +125,7 @@ export function GameBoard() {
         />
       )}
 
-      {pendingAction?.type === 'discardTokens' && (
+      {pendingAction?.type === 'discardTokens' && isMyTurn && (
         <DiscardTokensModal
           player={state.players.find((p) => p.id === pendingAction.playerId)!}
           excess={pendingAction.excess}
@@ -126,7 +133,7 @@ export function GameBoard() {
         />
       )}
 
-      {pendingAction?.type === 'chooseNoble' && (
+      {pendingAction?.type === 'chooseNoble' && isMyTurn && (
         <ChooseNobleModal
           nobles={state.nobles.filter((n) => pendingAction.eligibleNobleIds.includes(n.id))}
           onChoose={(nobleId) => dispatch({ type: 'CHOOSE_NOBLE', nobleId })}

@@ -1,23 +1,40 @@
 import { GameBoard } from './components/GameBoard';
 import { GameOverScreen } from './components/GameOverScreen';
-import { SetupScreen } from './components/SetupScreen';
+import { LobbyScreen } from './components/LobbyScreen';
+import { WaitingRoom } from './components/WaitingRoom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { GameProvider, useGameState } from './context/GameContext';
+import { OnlineGameProvider, useGameState } from './context/GameContext';
+import { RoomProvider, useRoom } from './context/RoomContext';
 
-function Game() {
-  const state = useGameState();
-  if (state.phase === 'setup') return <SetupScreen />;
-  if (state.phase === 'gameOver') return <GameOverScreen />;
-  return <GameBoard />;
+// The room's player list (ordered by join time) seeded the game as p1, p2, ... in that
+// same order, so a device's seat is just its own position in that same live list.
+function OnlineGame({ code, myPlayerId }: { code: string; myPlayerId: string }) {
+  return (
+    <OnlineGameProvider code={code} myPlayerId={myPlayerId}>
+      <OnlineGameBody myPlayerId={myPlayerId} />
+    </OnlineGameProvider>
+  );
 }
 
-// Temporary — proves anonymous auth is wired up. Replaced by the lobby UI in the next step.
-function AuthDebugBadge({ uid }: { uid: string }) {
-  return (
-    <div style={{ position: 'fixed', bottom: 8, right: 8, fontSize: 11, color: '#767d8c', zIndex: 100 }}>
-      uid: {uid.slice(0, 8)}…
-    </div>
-  );
+function OnlineGameBody({ myPlayerId }: { myPlayerId: string }) {
+  const state = useGameState();
+
+  // Briefly true right after a restart, before the room flips back to the waiting-room screen.
+  if (state.phase === 'setup') return null;
+  if (state.phase === 'gameOver') return <GameOverScreen />;
+  return <GameBoard myPlayerId={myPlayerId} />;
+}
+
+function RoomGate() {
+  const { uid } = useAuth();
+  const { code, room, players } = useRoom();
+
+  if (!code) return <LobbyScreen />;
+  if (!room || room.status === 'waiting') return <WaitingRoom />;
+
+  const myPlayerId = `p${players.findIndex((p) => p.uid === uid) + 1}`;
+
+  return <OnlineGame code={code} myPlayerId={myPlayerId} />;
 }
 
 function AuthGate() {
@@ -40,10 +57,9 @@ function AuthGate() {
   }
 
   return (
-    <GameProvider>
-      <Game />
-      <AuthDebugBadge uid={uid} />
-    </GameProvider>
+    <RoomProvider>
+      <RoomGate />
+    </RoomProvider>
   );
 }
 
